@@ -29,3 +29,6 @@ def appointment(request):
     else: 
      return render(request, 'appointment.html')
     
+def show(request):
+    allappointment = Myappointment.objects.all()
+    return render(request, 'show.html', {'allappointment': allappointment})
