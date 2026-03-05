@@ -9,7 +9,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
 
-    path('home/', views.home, name='home'),
+
+
+    path('index/', views.index, name='index'),
 
 
     path('starter/', views.starter, name='starter'),

@@ -1,58 +1,59 @@
 {% extends 'starter-page.html' %}
 
-{% load static %}
+{% block content %}
 
-   {%block content%}
+<div class="container mt-5">
+<h2>Appointments List</h2>
 
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Date & Time</th>
+            <th>Department</th>
+            <th>Doctor</th>
+            <th>Message</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
 
-   <h1 class="text-center">All Appointments</h1>
+    <tbody>
 
-<table class="table table-striped table-bordered">
-<tr>
-    <th>Name</th>
-    <th>Email Address</th>
-    <th>Phone</th>
-    <th>Date&Time</th>
-    <th>Department</th>
-    <th>Doctor</th>
-    <th>Message</th>
-    <th>Actions</th>
-</tr>
+       {% for appointment in allappointment %}
 
+        <tr>
+            <td>{{ appointment.id }}</td>
+            <td>{{ appointment.name }}</td>
+            <td>{{ appointment.email }}</td>
+            <td>{{ appointment.phone }}</td>
+            <td>{{ appointment.datetime }}</td>
+            <td>{{ appointment.department }}</td>
+            <td>{{ appointment.doctor }}</td>
+            <td>{{ appointment.message }}</td>
 
-{% for appointment in allappointment %}
-<tr>
-    <td>{{ appointment.name }}</td>
-    <td>{{ appointment.email }}</td>
-    <td>{{ appointment.phone }}</td>
-    <td>{{ appointment.datetime }}</td>
-    <td>{{ appointment.department }}</td>
-    <td>{{ appointment.doctor }}</td>
-    <td>{{ appointment.message }}</td>
-    <td>
+            <td>
 
-        <a href="/edit/{{appointment.id}}" class = "btn btn-outline-warning">Edit</a>
-        <a href="/delete/{{appointment.id}}" class="btn btn-outline-danger">Delete</a>
-        <a href=" {% url 'pay' %}" class="btn btn-success">Pay Now</a>
+             <a href="/edit/{{appointment.id}}" class = "btn btn-outline-warning">Edit</a>
+             <a href="/delete/{{appointment.id}}" class="btn btn-outline-danger">Delete</a>
+            <a href=" {% url 'pay' %}" class="btn btn-success">Pay Now</a>
         
 
 
-    </td>
-</tr>
+          </td>
 
+        </tr>
 
+    {% endfor %}
 
-
-
-
-
-
-{%endfor%}
-
-
-
+    </tbody>
 
 </table>
 
+</div>
 
-    {%endblock%}
+{% endblock %}
+
+

@@ -17,7 +17,7 @@ from django.contrib.auth import authenticate, login
 
 
 
-def home(request):
+def index(request):
     return render(request, 'index.html')
 
 def starter(request):
@@ -26,26 +26,23 @@ def starter(request):
 def about(request):
     return render(request, 'about.html')
 
+
 def appointment(request):
-    if request.method == 'POST':
+    if request.method == "POST":
+        appointment = Myappointment(
+            name=request.POST.get('name'),
+            email=request.POST.get('email'),
+            phone=request.POST.get('phone'),
+            datetime=request.POST.get('date'),
+            department=request.POST.get('department'),
+            doctor=request.POST.get('doctor'),
+            message=request.POST.get('message')
+        )
+        appointment.save()
 
-      all = Myappointment(
-        name = request.POST['name'],
-        email = request.POST['email'],
-        phone = request.POST['phone'],
-        datetime = request.POST['date'],
-        department = request.POST['department'],
-        doctor = request.POST['doctor'],
-        message = request.POST['message']
-    )
+        return redirect('appointment')
 
-      all.save()
-      return render(request, 'appointment.html')
-
-    else: 
-     return render(request, 'appointment.html')
-    
-
+    return render(request, 'appointment.html')
 
 def show(request):
     allappointment = Myappointment.objects.all()
@@ -204,8 +201,11 @@ def mpesa_callback(request):
 
 def transactions_list(request):
     # Only show successfully completed transactions
-    transactions = Transaction.objects.filter(status="Success").order_by('-date')
+    transactions = Transaction.objects.all().order_by('-date')
     return render(request, 'transactions.html', {'transactions': transactions})
+
+
+
 
 
 
