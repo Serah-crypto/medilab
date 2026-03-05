@@ -209,8 +209,10 @@ def transactions_list(request):
 
 
 
+
 def register(request):
-      if request.method == 'POST':
+    """ Show the registration form """
+    if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
         confirm_password = request.POST['confirm_password']
@@ -231,18 +233,7 @@ def register(request):
             # Display a message saying passwords don't match
             messages.error(request, "Passwords do not match")
 
-            return render(request, 'register.html')
-        
-from django.shortcuts import render, redirect
-
-def register(request):
-    if request.method == "POST":
-        # process form data
-        return redirect("login")  # or wherever
-    
-    # ALWAYS return something for GET
-    return render(request, "register.html")
-
+    return render(request, 'register.html')
 
 
 def login_user(request):
@@ -259,10 +250,10 @@ def login_user(request):
             messages.success(request, "You are now logged in!")
             # Admin
             if user.is_superuser:
-                return redirect('/show')
+                return redirect('/appointment')
 
             # For Normal Users
-            return redirect('/home')
+            return redirect('/index')
         else:
             messages.error(request, "Invalid login credentials")
 
